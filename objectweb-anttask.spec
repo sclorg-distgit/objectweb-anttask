@@ -41,7 +41,7 @@
 Summary:        ObjectWeb Ant task
 Name:           %{?scl_prefix}%{pkg_name}
 Version:        1.3.2
-Release:        10.13%{?dist}
+Release:        10.14%{?dist}
 Epoch:          0
 License:        LGPLv2+
 URL:            http://forge.objectweb.org/projects/monolog/
@@ -51,8 +51,8 @@ BuildRequires:  %{?scl_prefix_java_common}ant >= 0:1.6
 BuildRequires:  %{?scl_prefix_java_common}javapackages-tools
 
 %if %{without_bootstrap}
-BuildRequires:  maven30-asm2
-Requires:       maven30-asm2
+BuildRequires:  %{?scl_prefix}asm2
+Requires:       %{?scl_prefix}asm2
 %endif
 Requires:       %{?scl_prefix_java_common}ant
 %{?scl:Requires: %{scl_prefix}runtime}
@@ -68,7 +68,7 @@ Javadoc for %{pkg_name}.
 
 %prep
 %setup -c -q -n %{pkg_name}
-%{?scl:scl enable maven30 %{scl} - <<"EOF"}
+%{?scl:scl enable %{scl} - <<"EOF"}
 set -e -x
 
 # extract jars iff in bootstrap mode
@@ -79,14 +79,14 @@ find . -name "*.jar" -exec rm {} \;
 %{?scl:EOF}
 
 %build
-%{?scl:scl enable maven30 %{scl} - <<"EOF"}
+%{?scl:scl enable %{scl} - <<"EOF"}
 set -e -x
 export CLASSPATH=$(build-classpath asm2/asm2)
 ant -Dbuild.compiler=modern -Dbuild.sysclasspath=first jar jdoc
 %{?scl:EOF}
 
 %install
-%{?scl:scl enable maven30 %{scl} - <<"EOF"}
+%{?scl:scl enable %{scl} - <<"EOF"}
 set -e -x
 # jars
 install -d -m 0755 $RPM_BUILD_ROOT%{_javadir}
@@ -112,6 +112,9 @@ echo "%{pkg_name}" > $RPM_BUILD_ROOT%{_sysconfdir_java_common}/ant.d/%{pkg_name}
 %doc %{_javadocdir}/%{name}
 
 %changelog
+* Mon Jan 11 2016 Michal Srb <msrb@redhat.com> - 0:1.3.2-10.14
+- maven33 rebuild #2
+
 * Sat Jan 09 2016 Michal Srb <msrb@redhat.com> - 0:1.3.2-10.13
 - maven33 rebuild
 
