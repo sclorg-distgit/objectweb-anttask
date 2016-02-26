@@ -41,7 +41,7 @@
 Summary:        ObjectWeb Ant task
 Name:           %{?scl_prefix}%{pkg_name}
 Version:        1.3.2
-Release:        10.14%{?dist}
+Release:        10.15%{?dist}
 Epoch:          0
 License:        LGPLv2+
 URL:            http://forge.objectweb.org/projects/monolog/
@@ -112,6 +112,9 @@ echo "%{pkg_name}" > $RPM_BUILD_ROOT%{_sysconfdir_java_common}/ant.d/%{pkg_name}
 %doc %{_javadocdir}/%{name}
 
 %changelog
+* Mon Feb 08 2016 Michal Srb <msrb@redhat.com> - 0:1.3.2-10.15
+- Fix BR on maven-local & co.
+
 * Mon Jan 11 2016 Michal Srb <msrb@redhat.com> - 0:1.3.2-10.14
 - maven33 rebuild #2
 
